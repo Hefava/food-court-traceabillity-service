@@ -2,6 +2,8 @@ package com.traceability.food_court_traceability_service.ports.application.http.
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 @Setter
@@ -11,6 +13,7 @@ public class PurchaseHistoryRequest {
     private String orderId;
     private String clientId;
     private String clientEmail;
+    private LocalDateTime statusDate;
     private String lastStatus;
     private String newStatus;
     private String employeeId;

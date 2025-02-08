@@ -1,8 +1,8 @@
-package com.traceability.food_court_traceability_service.ports.repository.mongo.mapper;
+package com.traceability.food_court_traceability_service.ports.persistency.mongo.mapper;
 
 import com.traceability.food_court_traceability_service.domain.model.PurchaseHistory;
 import com.traceability.food_court_traceability_service.ports.application.http.dto.PurchaseHistoryRequest;
-import com.traceability.food_court_traceability_service.ports.repository.mongo.entity.PurchaseHistoryEntity;
+import com.traceability.food_court_traceability_service.ports.persistency.mongo.entity.PurchaseHistoryEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

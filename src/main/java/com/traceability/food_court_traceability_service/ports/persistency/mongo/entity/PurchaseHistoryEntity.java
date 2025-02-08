@@ -1,4 +1,4 @@
-package com.traceability.food_court_traceability_service.ports.repository.mongo.entity;
+package com.traceability.food_court_traceability_service.ports.persistency.mongo.entity;
 
 import jakarta.persistence.Id;
 import lombok.*;
