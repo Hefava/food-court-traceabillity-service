@@ -7,6 +7,4 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface PurchaseHistoryRequestMapper {
     PurchaseHistory toModel(PurchaseHistoryRequest purchaseHistoryRequest);
-
-    PurchaseHistoryRequest toDto(PurchaseHistory purchaseHistory);
 }

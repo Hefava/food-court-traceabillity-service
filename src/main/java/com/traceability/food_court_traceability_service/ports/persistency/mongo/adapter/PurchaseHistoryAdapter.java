@@ -1,11 +1,13 @@
-package com.traceability.food_court_traceability_service.ports.repository.mongo.adapter;
+package com.traceability.food_court_traceability_service.ports.persistency.mongo.adapter;
 
 import com.traceability.food_court_traceability_service.domain.model.PurchaseHistory;
 import com.traceability.food_court_traceability_service.domain.spi.IPurchaseHistoryPersistencePort;
-import com.traceability.food_court_traceability_service.ports.repository.mongo.mapper.PurchaseHistoryEntityMapper;
-import com.traceability.food_court_traceability_service.ports.repository.mongo.persistency.PurchaseHistoryMongoRepository;
+import com.traceability.food_court_traceability_service.ports.persistency.mongo.mapper.PurchaseHistoryEntityMapper;
+import com.traceability.food_court_traceability_service.ports.persistency.mongo.repository.PurchaseHistoryMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -16,5 +18,12 @@ public class PurchaseHistoryAdapter implements IPurchaseHistoryPersistencePort {
     @Override
     public void generatePurchaseHistory(PurchaseHistory purchaseHistory) {
         purchaseHistoryMongoRepository.save(purchaseHistoryEntityMapper.toEntity(purchaseHistory));
+    }
+
+    @Override
+    public List<PurchaseHistory> findByClientId(String clientId) {
+        return purchaseHistoryMongoRepository.findByClientId(clientId).stream()
+                .map(purchaseHistoryEntityMapper::toModel)
+                .toList();
     }
 }
