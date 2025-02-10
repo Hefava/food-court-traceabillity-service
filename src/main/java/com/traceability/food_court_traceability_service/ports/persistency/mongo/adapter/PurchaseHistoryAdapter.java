@@ -7,6 +7,8 @@ import com.traceability.food_court_traceability_service.ports.persistency.mongo.
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class PurchaseHistoryAdapter implements IPurchaseHistoryPersistencePort {
@@ -16,5 +18,12 @@ public class PurchaseHistoryAdapter implements IPurchaseHistoryPersistencePort {
     @Override
     public void generatePurchaseHistory(PurchaseHistory purchaseHistory) {
         purchaseHistoryMongoRepository.save(purchaseHistoryEntityMapper.toEntity(purchaseHistory));
+    }
+
+    @Override
+    public List<PurchaseHistory> findByClientId(String clientId) {
+        return purchaseHistoryMongoRepository.findByClientId(clientId).stream()
+                .map(purchaseHistoryEntityMapper::toModel)
+                .toList();
     }
 }

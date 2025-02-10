@@ -3,6 +3,7 @@ package com.traceability.food_court_traceability_service.infrastructure.configur
 import com.traceability.food_court_traceability_service.domain.api.IPurchaseHistoryServicePort;
 import com.traceability.food_court_traceability_service.domain.api.usecasse.PurchaseHistoryUseCase;
 import com.traceability.food_court_traceability_service.domain.spi.IPurchaseHistoryPersistencePort;
+import com.traceability.food_court_traceability_service.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +21,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BeanConfiguration {
     private final IPurchaseHistoryPersistencePort purchaseHistoryPersistencePort;
+    private final IUserPersistencePort userPersistencePort;
 
     @Bean
     public IPurchaseHistoryServicePort purchaseHistoryServicePort() {
-        return new PurchaseHistoryUseCase(purchaseHistoryPersistencePort);
+        return new PurchaseHistoryUseCase(purchaseHistoryPersistencePort, userPersistencePort);
     }
 
     @Bean
