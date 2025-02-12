@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseHistoryStatusResponse {
+    private String orderId;
     private LocalDateTime statusDate;
     private String lastStatus;
     private String newStatus;

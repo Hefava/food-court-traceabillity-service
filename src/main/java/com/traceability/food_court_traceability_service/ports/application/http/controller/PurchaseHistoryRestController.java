@@ -3,6 +3,7 @@ package com.traceability.food_court_traceability_service.ports.application.http.
 import com.traceability.food_court_traceability_service.domain.api.IPurchaseHistoryServicePort;
 import com.traceability.food_court_traceability_service.domain.model.PurchaseHistory;
 import com.traceability.food_court_traceability_service.domain.utils.TimeUtils;
+import com.traceability.food_court_traceability_service.ports.application.http.dto.OrderProcessingTimeResponse;
 import com.traceability.food_court_traceability_service.ports.application.http.dto.PurchaseHistoryRequest;
 import com.traceability.food_court_traceability_service.ports.application.http.dto.PurchaseHistoryStatusResponse;
 import com.traceability.food_court_traceability_service.ports.application.http.mapper.PurchaseHistoryRequestMapper;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/purchase-history")
@@ -40,6 +42,26 @@ public class PurchaseHistoryRestController {
         List<PurchaseHistoryStatusResponse> response = calculateTimeDifferences(purchaseHistories);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/processing-time-per-order")
+    public ResponseEntity<List<OrderProcessingTimeResponse>> getProcessingTimePerOrder() {
+        Map<String, String> processingTimes = purchaseHistoryServicePort.calculateProcessingTimePerOrder();
+
+        List<OrderProcessingTimeResponse> response = processingTimes.entrySet().stream()
+                .map(entry -> OrderProcessingTimeResponse.builder()
+                        .orderId(entry.getKey())
+                        .processingTime(entry.getValue())
+                        .build())
+                .toList();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/employee-ranking")
+    public ResponseEntity<Map<Long, String>> getEmployeeRanking() {
+        Map<Long, String> ranking = purchaseHistoryServicePort.calculateAverageProcessingTimePerEmployee();
+        return ResponseEntity.ok(ranking);
     }
 
     private List<PurchaseHistoryStatusResponse> calculateTimeDifferences(List<PurchaseHistory> purchaseHistories) {

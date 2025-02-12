@@ -7,4 +7,5 @@ import java.util.List;
 public interface IPurchaseHistoryPersistencePort {
     void generatePurchaseHistory(PurchaseHistory purchaseHistory);
     List<PurchaseHistory> findByClientId(String clientId);
+    List<PurchaseHistory> findAll();
 }
