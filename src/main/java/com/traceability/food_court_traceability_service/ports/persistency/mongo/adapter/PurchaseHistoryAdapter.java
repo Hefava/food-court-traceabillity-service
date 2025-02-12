@@ -26,4 +26,11 @@ public class PurchaseHistoryAdapter implements IPurchaseHistoryPersistencePort {
                 .map(purchaseHistoryEntityMapper::toModel)
                 .toList();
     }
+
+    @Override
+    public List<PurchaseHistory> findAll() {
+        return purchaseHistoryMongoRepository.findAll().stream()
+                .map(purchaseHistoryEntityMapper::toModel)
+                .toList();
+    }
 }
